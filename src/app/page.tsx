@@ -48,22 +48,26 @@ export default function Home() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full bg-[#154473] text-white py-2 px-4 rounded-lg shadow-lg hover:bg-[#123961] focus:outline-none focus:ring focus:ring-[#5A7EA6]"
           >
             Save & Continue
           </button>
+
         </form>
       </div>
 
       {/* Right Section */}
       <div className="w-1/2 flex items-center justify-center bg-gray-200">
+      <div className="w-full h-full relative">
         <Image
-          src="/img/signup.png" 
+          src="/img/signup.png"
           alt="High School"
-          width={500}
-          height={500}
+          layout="fill"
+          objectFit="cover"
         />
       </div>
+</div>
+
     </div>
   );
 }
