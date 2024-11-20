@@ -58,7 +58,7 @@ export default function Home() {
       {/* Right Section */}
       <div className="w-1/2 flex items-center justify-center bg-gray-200">
         <Image
-          src="/school-illustration.png" // Replace with your image path
+          src="/img/signup.png" 
           alt="High School"
           width={500}
           height={500}
