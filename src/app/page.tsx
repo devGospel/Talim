@@ -4,14 +4,14 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Home() {
-  const [username, setUsername] = useState('')
-  const [location, setLocation] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleNameChange = (e: any) => {
-    setUsername(e.target.value); 
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value); 
   };
-  const handleLocationChange = (e: any) => {
-    setLocation(e.target.value); 
+  const handlePasswordChange = (e: any) => {
+    setPassword(e.target.value); 
   };
 
 
@@ -32,9 +32,9 @@ export default function Home() {
               type="text"
               id="name"
               name="name"
-              value={username}
+              value={email}
               placeholder="Enter the name of the School"
-              onChange={handleNameChange}
+              onChange={handleEmailChange}
    
               className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
@@ -48,8 +48,8 @@ export default function Home() {
               id="location"
               name="location"
               placeholder="Enter the school&apos;s location"
-              value={location}
-              onChange={handleLocationChange}
+              value={password}
+              onChange={handlePasswordChange}
         
               className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
