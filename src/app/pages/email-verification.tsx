@@ -1,28 +1,26 @@
 'use client';
 
 import Image from 'next/image';
-import {useRouter} from 'next/router';
 import { useState } from 'react';
-import { usePageIndicator } from './context/PageIndicatorContext'; 
+import { usePageIndicator } from '../context/PageIndicatorContext'; 
+
 export default function Home() {
-
-  const router = useRouter();
   const { currentPage, setCurrentPage } = usePageIndicator(); 
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+  const [email, setEmail] = useState('');
+  const [uniqueId, setUniqueId] = useState('');
+
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
   };
 
-  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value);
+  const handleUniqueIdChange = (e: any) => {
+    setUniqueId(e.target.value);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e:any) => {
     e.preventDefault();
-    setCurrentPage(1); 
-    router.push('/email-verification')
+    setCurrentPage(2); 
   };
 
   return (
@@ -31,37 +29,37 @@ export default function Home() {
       <div className="w-1/2 flex flex-col justify-center items-center px-8">
         <div className="w-[70%] bg-white shadow-lg rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
-            Welcome Home!
+            Welcome Back!
           </h1>
           <p className="text-sm text-gray-600 mb-6 text-center">
-            Sign up to begin your management journey.
+            Enter your details to continue.
           </p>
           <form className="flex flex-col space-y-6" onSubmit={handleFormSubmit}>
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
-                placeholder="Enter the name of the School"
-                value={name}
-                onChange={handleNameChange}
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={handleEmailChange}
                 className="mt-1 w-[100%] px-3 py-2 rounded-lg shadow-sm text-gray-800 transition-all duration-200 hover:ring-2 hover:ring-indigo-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             </div>
             <div>
-              <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-                Location
+              <label htmlFor="id" className="block text-sm font-medium text-gray-700">
+                Unique Id
               </label>
               <input
                 type="text"
-                id="location"
-                name="location"
-                placeholder="Enter the school's location"
-                value={location}
-                onChange={handleLocationChange}
+                id="id"
+                name="id"
+                placeholder="Enter your unique Id"
+                value={uniqueId}
+                onChange={handleUniqueIdChange}
                 className="mt-1 w-[100%] px-3 py-2 rounded-lg shadow-sm text-gray-800 transition-all duration-200 hover:ring-2 hover:ring-indigo-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             </div>
@@ -72,17 +70,6 @@ export default function Home() {
               Save & Continue
             </button>
           </form>
-          {/* Page Indicator */}
-          <div className="flex justify-center mt-4">
-            {[...Array(3)].map((_, index) => (
-              <span
-                key={index}
-                className={`h-2 w-2 mx-1 rounded-full ${
-                  currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
-                }`}
-              ></span>
-            ))}
-          </div>
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google"; // Import Poppins font from Google Fonts
 import "./globals.css";
+import { PageIndicatorProvider } from "./context/PageIndicatorContext";
 
 // Local Fonts
 const geistSans = localFont({
@@ -38,7 +39,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
       >
+        <PageIndicatorProvider>
         {children}
+        </PageIndicatorProvider>
+
       </body>
     </html>
   );
