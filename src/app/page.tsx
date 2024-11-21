@@ -4,9 +4,15 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Home() {
-  const [formData, setFormData] = useState({ name: '', location: '' });
+  const [username, setUsername] = useState('')
+  const [location, setLocation] = useState('')
 
-
+  const handleNameChange = (e: any) => {
+    setUsername(e.target.value); 
+  };
+  const handleLocationChange = (e: any) => {
+    setLocation(e.target.value); 
+  };
 
 
   return (
@@ -26,8 +32,9 @@ export default function Home() {
               type="text"
               id="name"
               name="name"
+              value={username}
               placeholder="Enter the name of the School"
-              value={formData.name}
+              onChange={handleNameChange}
    
               className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
@@ -41,7 +48,8 @@ export default function Home() {
               id="location"
               name="location"
               placeholder="Enter the school&apos;s location"
-              value={formData.location}
+              value={location}
+              onChange={handleLocationChange}
         
               className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             />
