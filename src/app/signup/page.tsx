@@ -2,9 +2,13 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePageIndicator } from '../context/PageIndicatorContext';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import {useRouter} from 'next/navigation'
 
 export default function Signup() {
+  const { currentPage, setCurrentPage } = usePageIndicator();
+  const router = useRouter()
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -26,15 +30,24 @@ export default function Signup() {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  const handleDotClick = (index: number) => {
+    setCurrentPage(index);
+
+  
+    const routes = ['/', '/email-verification', '/signup']; 
+    router.push(routes[index]);
+  };
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-white">
       {/* Left Section */}
-      <div className="w-1/2 flex flex-col justify-center px-16">
+      <div className="w-1/2 flex flex-col justify-center items-center px-8">
+      <div className="w-[70%] bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">Welcome Home!</h1>
         <p className="text-lg text-gray-600 mb-8">
           Sign up to begin your management journey.
         </p>
-        <form>
+        <form className="flex flex-col space-y-6">
           {/* Password Field */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -101,6 +114,21 @@ export default function Signup() {
             Sign Up
           </button>
         </form>
+
+          {/* Page Indicator */}
+          <div className="flex justify-center mt-4">
+            {[...Array(3)].map((_, index) => (
+              <span
+                key={index}
+                onClick={() => handleDotClick(index)} // Add click handler
+                className={`h-2 w-2 mx-1 rounded-full cursor-pointer ${
+                  currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
+                }`}
+              ></span>
+            ))}
+          </div>
+
+      </div>
       </div>
 
       {/* Right Section */}
@@ -113,6 +141,7 @@ export default function Signup() {
             objectFit="cover"
           />
         </div>
+        
       </div>
     </div>
   );

@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePageIndicator } from '../context/PageIndicatorContext';
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 export default function EmailVerification() {
   const { currentPage, setCurrentPage } = usePageIndicator();
-  const router = useRouter()
+  const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [uniqueId, setUniqueId] = useState('');
@@ -23,11 +23,19 @@ export default function EmailVerification() {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setCurrentPage(2); 
-    router.push('/signup')
+    router.push('/signup');
+  };
+
+  const handleDotClick = (index: number) => {
+    setCurrentPage(index);
+
+  
+    const routes = ['/', '/email-verification', '/signup']; 
+    router.push(routes[index]);
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-white">
       {/* Left Section */}
       <div className="w-1/2 flex flex-col justify-center items-center px-8">
         <div className="w-[70%] bg-white shadow-lg rounded-lg p-8">
@@ -79,12 +87,14 @@ export default function EmailVerification() {
             {[...Array(3)].map((_, index) => (
               <span
                 key={index}
-                className={`h-2 w-2 mx-1 rounded-full ${
+                onClick={() => handleDotClick(index)} // Add click handler
+                className={`h-2 w-2 mx-1 rounded-full cursor-pointer ${
                   currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
                 }`}
               ></span>
             ))}
           </div>
+          
         </div>
       </div>
 

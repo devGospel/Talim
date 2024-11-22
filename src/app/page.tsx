@@ -27,8 +27,16 @@ export default function Home() {
     router.push('/email-verification')
   };
 
+  const handleDotClick = (index: number) => {
+    setCurrentPage(index);
+
+  
+    const routes = ['/', '/email-verification', '/signup']; 
+    router.push(routes[index]);
+  };
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-white">
       {/* Left Section */}
       <div className="w-1/2 flex flex-col justify-center items-center px-8">
         <div className="w-[70%] bg-white shadow-lg rounded-lg p-8">
@@ -74,17 +82,20 @@ export default function Home() {
               Save & Continue
             </button>
           </form>
+
           {/* Page Indicator */}
           <div className="flex justify-center mt-4">
             {[...Array(3)].map((_, index) => (
               <span
                 key={index}
-                className={`h-2 w-2 mx-1 rounded-full ${
+                onClick={() => handleDotClick(index)} // Add click handler
+                className={`h-2 w-2 mx-1 rounded-full cursor-pointer ${
                   currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
                 }`}
               ></span>
             ))}
           </div>
+
         </div>
       </div>
 
