@@ -2,25 +2,28 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { usePageIndicator } from '../context/PageIndicatorContext'; 
+import { usePageIndicator } from '../context/PageIndicatorContext';
+import {useRouter} from 'next/navigation'
 
-export default function Home() {
-  const { currentPage, setCurrentPage } = usePageIndicator(); 
+export default function EmailVerification() {
+  const { currentPage, setCurrentPage } = usePageIndicator();
+  const router = useRouter()
 
   const [email, setEmail] = useState('');
   const [uniqueId, setUniqueId] = useState('');
 
-  const handleEmailChange = (e: any) => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handleUniqueIdChange = (e: any) => {
+  const handleUniqueIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUniqueId(e.target.value);
   };
 
-  const handleFormSubmit = (e:any) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setCurrentPage(2); 
+    router.push('/signup')
   };
 
   return (
@@ -70,6 +73,18 @@ export default function Home() {
               Save & Continue
             </button>
           </form>
+
+          {/* Page Indicator */}
+          <div className="flex justify-center mt-4">
+            {[...Array(3)].map((_, index) => (
+              <span
+                key={index}
+                className={`h-2 w-2 mx-1 rounded-full ${
+                  currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
+                }`}
+              ></span>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -2,23 +2,28 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'; // Import Heroicons
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
-export default function Home() {
-  const [email, setEmail] = useState('');
+export default function Signup() {
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleEmailChange = (e: any) => {
-    setEmail(e.target.value);
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
 
-  const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -30,27 +35,14 @@ export default function Home() {
           Sign up to begin your management journey.
         </p>
         <form>
-          <div className="mb-6">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={email}
-              placeholder="Enter the name of the School"
-              onChange={handleEmailChange}
-              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            />
-          </div>
+          {/* Password Field */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
             <div className="relative">
               <input
-                type={showPassword ? 'text' : 'password'} 
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 placeholder="Enter your password"
@@ -64,18 +56,49 @@ export default function Home() {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 focus:outline-none"
               >
                 {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5" /> 
+                  <EyeSlashIcon className="h-5 w-5" />
                 ) : (
-                  <EyeIcon className="h-5 w-5" /> 
+                  <EyeIcon className="h-5 w-5" />
                 )}
               </button>
             </div>
           </div>
+
+          {/* Confirm Password Field */}
+          <div className="mb-6">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              />
+              <button
+                type="button"
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 focus:outline-none"
+              >
+                {showConfirmPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-[#154473] text-white py-2 px-4 rounded-lg shadow-lg hover:bg-[#123961] focus:outline-none focus:ring focus:ring-[#5A7EA6]"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
       </div>

@@ -1,9 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import {useRouter} from 'next/navigation';
 import { useState } from 'react';
-import { usePageIndicator } from './context/PageIndicatorContext'; 
+import { usePageIndicator } from './context/PageIndicatorContext';
+
+
 export default function Home() {
 
   const router = useRouter();
