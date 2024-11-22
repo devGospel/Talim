@@ -32,10 +32,14 @@ export default function Signup() {
 
   const handleDotClick = (index: number) => {
     setCurrentPage(index);
-
   
     const routes = ['/', '/email-verification', '/signup']; 
     router.push(routes[index]);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push('/signin');
   };
 
   return (
@@ -43,17 +47,19 @@ export default function Signup() {
       {/* Left Section */}
       <div className="w-1/2 flex flex-col justify-center items-center px-8">
       <div className="w-[70%] bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">Welcome Home!</h1>
-        <p className="text-lg text-gray-600 mb-8">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
+            Welcome Back!
+          </h1>
+          <p className="text-sm text-gray-600 mb-6 text-center">
           Sign up to begin your management journey.
-        </p>
-        <form className="flex flex-col space-y-6">
+          </p>
+          <form className="flex flex-col space-y-6" onSubmit={handleFormSubmit}>
           {/* Password Field */}
-          <div className="mb-6">
+          <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
             </label>
-            <div className="relative">
+            <div >
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
@@ -78,7 +84,7 @@ export default function Signup() {
           </div>
 
           {/* Confirm Password Field */}
-          <div className="mb-6">
+          <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
               Confirm Password
             </label>

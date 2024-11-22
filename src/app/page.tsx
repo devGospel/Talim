@@ -1,15 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import {useRouter} from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { usePageIndicator } from './context/PageIndicatorContext';
 
-
 export default function Home() {
-
   const router = useRouter();
-  const { currentPage, setCurrentPage } = usePageIndicator(); 
+  const pathname = usePathname(); 
+  const { currentPage, setCurrentPage } = usePageIndicator();
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
 
@@ -23,17 +22,24 @@ export default function Home() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setCurrentPage(1); 
-    router.push('/email-verification')
+    setCurrentPage(1);
+    router.push('/email-verification');
   };
 
   const handleDotClick = (index: number) => {
     setCurrentPage(index);
-
-  
-    const routes = ['/', '/email-verification', '/signup']; 
+    const routes = ['/', '/email-verification', '/signup'];
     router.push(routes[index]);
   };
+
+  // Sync current page indicator with pathname changes
+  useEffect(() => {
+    const routes = ['/', '/email-verification', '/signup'];
+    const pageIndex = routes.indexOf(pathname); // Determine the current page index
+    if (pageIndex !== -1) {
+      setCurrentPage(pageIndex);
+    }
+  }, [pathname, setCurrentPage]); // Trigger whenever the pathname changes
 
   return (
     <div className="flex h-screen bg-white">
@@ -88,14 +94,13 @@ export default function Home() {
             {[...Array(3)].map((_, index) => (
               <span
                 key={index}
-                onClick={() => handleDotClick(index)} // Add click handler
+                onClick={() => handleDotClick(index)}
                 className={`h-2 w-2 mx-1 rounded-full cursor-pointer ${
                   currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
                 }`}
               ></span>
             ))}
           </div>
-
         </div>
       </div>
 

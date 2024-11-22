@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePageIndicator } from '../context/PageIndicatorContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function EmailVerification() {
   const { currentPage, setCurrentPage } = usePageIndicator();
   const router = useRouter();
+  const pathname = usePathname();
 
   const [email, setEmail] = useState('');
   const [uniqueId, setUniqueId] = useState('');
@@ -22,17 +23,25 @@ export default function EmailVerification() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setCurrentPage(2); 
+    setCurrentPage(2);
     router.push('/signup');
   };
 
   const handleDotClick = (index: number) => {
     setCurrentPage(index);
-
-  
-    const routes = ['/', '/email-verification', '/signup']; 
+    const routes = ['/', '/email-verification', '/signup'];
     router.push(routes[index]);
   };
+
+  // Sync currentPage with the route on initial render and route change
+  useEffect(() => {
+    const routeToPageMap: Record<string, number> = {
+      '/': 0,
+      '/email-verification': 1,
+      '/signup': 2,
+    };
+    setCurrentPage(routeToPageMap[pathname] || 0);
+  }, [pathname, setCurrentPage]);
 
   return (
     <div className="flex h-screen bg-white">
@@ -43,7 +52,7 @@ export default function EmailVerification() {
             Welcome Back!
           </h1>
           <p className="text-sm text-gray-600 mb-6 text-center">
-            Enter your details to continue.
+            Sign up to begin your management journey.
           </p>
           <form className="flex flex-col space-y-6" onSubmit={handleFormSubmit}>
             <div>
@@ -87,14 +96,13 @@ export default function EmailVerification() {
             {[...Array(3)].map((_, index) => (
               <span
                 key={index}
-                onClick={() => handleDotClick(index)} // Add click handler
+                onClick={() => handleDotClick(index)}
                 className={`h-2 w-2 mx-1 rounded-full cursor-pointer ${
                   currentPage === index ? 'bg-indigo-500' : 'bg-gray-300'
                 }`}
               ></span>
             ))}
           </div>
-          
         </div>
       </div>
 
